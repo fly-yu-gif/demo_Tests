@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 
 public class LevelProcess {
 
@@ -76,7 +77,7 @@ public class LevelProcess {
             target = "E:\\work\\android\\assets\\customData\\";
         } else {
             sourceLevel = "E:\\bubble_svn\\1.策划文档\\关卡\\LevelB\\customDatab\\";
-            target = "E:\\work\\android\\assets\\customDatab\\";
+            target = "C:\\Users\\fly\\Desktop\\downTest\\jsonLevel\\1.6.4-debug\\";
         }
         File files = new File(sourceLevel);
         if (!files.exists() || !files.isDirectory()) {
@@ -85,7 +86,8 @@ public class LevelProcess {
         }
 //        清空目标文件夹
         deleteFile(new File(target), false);
-
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("\n");
         String[] levelCsvInfo = readCsvFile(levelCag, sourceLevel);
         for (File f : files.listFiles()) {
 //            不是json或者csv的话就不复制
@@ -93,8 +95,6 @@ public class LevelProcess {
                 continue;
             }
             int levelNum = Integer.parseInt(f.getName().replaceAll("\\D", ""));
-
-
             String jsonStr = readJsonFile(f);
             //从字符串解析JSON对象
             JSONObject obj = JSON.parseObject(jsonStr);
@@ -104,9 +104,16 @@ public class LevelProcess {
             obj.put("csv", levelCsvInfo[levelNum].replaceAll(",", ";"));
             //将JSON对象转化为字符串
             String objStr = JSON.toJSONString(obj);
+            stringArrayList.add(levelNum + "-" + CheckCrc32.getCrc(objStr) + "\n");
             JsonUtil.writeStrToFile(objStr, target, f.getName());
 
         }
+        String exp = ",";
+        String str = stringArrayList.toString();
+        str = str.replaceAll(exp, "");
+        JsonUtil.writeStrToFile(str, target, "check.txt");
+
+
     }
 
     /**
