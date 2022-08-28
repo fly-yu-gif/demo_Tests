@@ -1,3 +1,4 @@
 rootProject.name = 'demo_g2'
 include 'jsonTest'
+include 'bubble'
 
