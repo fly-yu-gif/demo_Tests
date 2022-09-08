@@ -13,6 +13,7 @@ public class CheckCrc32 {
     private static CRC32 crc32 = new CRC32();
 
     public static String getCrc(String targetStr) {
+        crc32.reset();
         crc32.update(targetStr.getBytes());
         return String.valueOf(crc32.getValue());
     }
