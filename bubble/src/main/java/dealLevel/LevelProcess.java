@@ -17,6 +17,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LevelProcess {
 
@@ -28,12 +29,14 @@ public class LevelProcess {
 //        copyLevel("B");
         //csv信息写入到关卡
 //        dealLevel("A");
-        dealLevel("B");
+//        dealLevel("B");
         //关卡内泡泡排序
 //        sortLevvel(soure, soure);
         String source = "E:\\bubble_svn\\美术资源2\\切图\\开发切图\\1_2_sign\\道具";
         String output = "C:\\Users\\fly\\Desktop\\out\\";
 //        reNameFile(source, output);
+        File dir = new File("E:\\bubble_svn\\1.策划文档\\关卡\\LevelB\\customDatab\\outputLevel\\");
+        getLevelids(dir);
     }
 
     /**
@@ -383,6 +386,21 @@ public class LevelProcess {
         assert resStr != null;
         String str = resStr.replace("\r\n", "\n");
         return str.split("\n");
+    }
+
+    /**
+     * @return 提取文件夹内的json关卡id
+     */
+    public static void getLevelids(File dir) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (File f : Objects.requireNonNull(dir.listFiles())) {
+            if (!f.getName().endsWith("json")) {
+                continue;
+            }
+            stringBuilder.append(f.getName().replaceAll("\\D", "") + ",");
+        }
+        System.out.println(stringBuilder);
+
     }
 
 }
