@@ -8,6 +8,8 @@ import com.json.Person;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author jz
@@ -22,8 +24,23 @@ public class Demo {
     public static void main(String[] args) {
 //        testJson();
 //        createObj();
-        objToJsonStr();
+//        objToJsonStr();
 //        jsonStrToObj();
+    }
+
+    /**
+     * 正则表达式使用
+     */
+    static void testZZ() {
+        Pattern pattern;
+        Matcher matcher;
+        String res = ",203,205,207,,209";
+        pattern = Pattern.compile(",+" + 207 + ",?");
+        matcher = pattern.matcher(res);
+        boolean useBLevel = matcher.find();
+        res = matcher.replaceFirst(",");
+        System.out.println(res);
+        System.out.println(useBLevel);
     }
 
     static void objToJsonStr() {

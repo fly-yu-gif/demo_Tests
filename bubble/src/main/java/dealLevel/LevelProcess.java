@@ -36,7 +36,18 @@ public class LevelProcess {
         String output = "C:\\Users\\fly\\Desktop\\out\\";
 //        reNameFile(source, output);
         File dir = new File("E:\\bubble_svn\\1.策划文档\\关卡\\LevelB\\customDatab\\outputLevel\\");
-        getLevelids(dir);
+//        getLevelids(dir);
+
+    }
+
+    /**
+     * @param testJson 检查文件的crc
+     */
+    public static void checkFileCrc(File testJson) {
+        String str = readJsonFile(testJson);
+        assert str != null;
+        String crc = CheckCrc32.getCrc(str);
+        System.out.println(crc);
     }
 
     /**
